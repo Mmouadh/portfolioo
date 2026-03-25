@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Mail, ArrowUpRight, X, Send, CheckCircle2, AlertCircle } from "lucide-react";
 
-const SERVICE_ID = "service_dxby2k7";
-const TEMPLATE_ID = "template_l7jmabn";
-const PUBLIC_KEY = "UgC97kTp2YVOi8zv-";
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function ContactPopup() {
   const [open, setOpen] = useState(false);
@@ -15,6 +15,13 @@ export default function ContactPopup() {
     e.preventDefault();
     if (status === "sending") return;
     setStatus("sending");
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("EmailJS env vars missing");
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 2500);
+      return;
+    }
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY).then(
       () => {

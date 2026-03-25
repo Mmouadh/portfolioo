@@ -42,9 +42,10 @@ const iconMap = {
 
 export default function AboutExperience() {
   const [aboutData, setAboutData] = useState(null);
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/about")
+    fetch(`${BACKEND_URL}/api/about`)
       .then((res) => res.json())
       .then((data) => setAboutData(data))
       .catch((err) => console.error("Failed to fetch about data:", err));

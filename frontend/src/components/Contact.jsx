@@ -10,10 +10,17 @@ export default function Contact() {
     e.preventDefault();
     setStatus('sending');
 
-    // CONFIGURATION
-    const SERVICE_ID = "service_dxby2k7"; 
-    const TEMPLATE_ID = "template_l7jmabn";
-    const PUBLIC_KEY = "UgC97kTp2YVOi8zv-"; // <--- GET THIS FROM EMAILJS ACCOUNT TAB
+    // CONFIGURATION - injected via Vite env
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("EmailJS env vars missing");
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+      return;
+    }
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
       .then(() => {
