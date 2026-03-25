@@ -1,0 +1,20 @@
+:root {
+  --bg-main: #0a0a0a;
+  --bg-sidebar: #050505;
+  --bg-card: #111111;
+
+  --primary: #00ff9c;
+  --accent: #00c3ff;
+
+  --text-main: #e5e5e5;
+  --text-muted: #6b7280;
+
+  --border: #1f2937;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: monospace;
+}

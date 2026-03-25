@@ -1,0 +1,461 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 1.5em;
+  background: var(--text-main);
+  color: crimson;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: crimson;
+  margin-bottom: 24px;
+}
+
+.sidebar a {
+  display: block;
+  color: var(--text-main);
+  text-decoration: none;
+  margin: 12px 0;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: var(--accent);
+}
+
+.logout-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  color: var(--text-muted);
+  text-decoration: none;
+  margin: 24px 0 12px; /* More margin on top */
+  padding: 8px;
+  font: inherit; /* Inherit font styles from parent */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: crimson;
+  border-color: crimson;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  background: var(--bg-main);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* hidden by default */
+    width: 240px;
+    height: 100%;
+    padding: 20px;
+    padding-top: 60px; /* added to push content below hamburger button */
+    transition: left 0.3s ease;
+    z-index: 1000;
+    border-right: none;
+  }
+
+  .sidebar.open {
+    left: 0; /* slide in */
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .content {
+    padding: 20px;
+    padding-top: 60px;
+  }
+}
+
+/* --- Page Header --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h2 {
+  color: wheat;
+  font-size: 2em;
+  margin: 0;
+}
+
+.edit-button {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+  background-color: #a0132f;
+}
+
+/* --- Edit Panel --- */
+.edit-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1050;
+}
+
+.edit-panel {
+  position: fixed;
+  top: 0;
+  right: -450px; /* Hidden by default */
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  background: var(--bg-sidebar);
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+  z-index: 1051;
+  transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-panel.open {
+  right: 0; /* Slide in */
+}
+
+.edit-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.edit-panel-header h3 {
+  margin: 0;
+  color: wheat;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.panel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.panel-form label {
+  color: var(--text-main);
+  font-size: 0.9em;
+  margin-bottom: -10px;
+}
+
+.panel-form input,
+.panel-form textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.panel-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.panel-form button[type="submit"] {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.panel-form button[type="submit"]:hover {
+  background-color: #a0132f;
+}
+
+/* --- Display Styles (for About page) --- */
+.about-display {
+  color: var(--text-main);
+}
+
+.about-display img {
+  max-width: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 3px solid var(--border);
+}
+
+.about-display h3 {
+  color: wheat;
+  margin-top: 0;
+}
+
+.about-display h4 {
+  color: #ccc;
+  font-weight: normal;
+  margin-top: -10px;
+}
+
+.about-display p {
+  line-height: 1.6;
+  max-width: 80ch;
+}
+
+/* --- General Page Styles --- */
+.content > div > h1,
+.content > div > h2,
+.content > h1,
+.content > h2 {
+  color: wheat;
+  margin-top: 0;
+  margin-bottom: 40px;
+  font-size: 2em;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- General Form Styles --- */
+.page-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+
+.page-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-main);
+  font-size: 1em;
+}
+
+.page-form input,
+.page-form textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.page-form textarea {
+  min-height: 150px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.page-form button[type="submit"] {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.page-form button[type="submit"]:hover {
+  background-color: #a0132f;
+}
+
+.page-form button[type="submit"]:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* --- General Small Buttons --- */
+.btn {
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s;
+  background: none;
+  color: var(--text-main);
+}
+
+.btn-secondary {
+  background-color: #4a4a4a;
+}
+.btn-secondary:hover {
+  background-color: #5a5a5a;
+}
+
+.btn-danger {
+  color: #ff5555;
+  border-color: #5c3b3b;
+}
+.btn-danger:hover {
+  background-color: #4d2d2d;
+  border-color: #ff5555;
+  color: white;
+}
+
+/* --- Skills Admin Page --- */
+.skills-admin-layout {
+  display: flex;
+  gap: 40px;
+}
+
+.skills-list-container {
+  flex: 2;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.skill-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-sidebar);
+  color: var(--text-main);
+  text-align: center;
+}
+
+.skill-card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.skill-card-level {
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+.skill-card-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.skills-form-container {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--bg-sidebar);
+  align-self: flex-start; /* Prevent stretching */
+  position: sticky;
+  top: 40px;
+}
+
+.icon-preview-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.icon-preview {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 992px) {
+  .skills-admin-layout {
+    flex-direction: column;
+  }
+  .skills-form-container {
+    position: static;
+    width: 100%;
+  }
+}

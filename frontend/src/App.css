@@ -1,0 +1,39 @@
+/* App.css */
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* optional utility classes if you want them */
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em rgba(100,108,255,0.6));
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em rgba(97,218,251,0.7));
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
