@@ -10,7 +10,7 @@ const iconMap = {
 
 export default function About() {
   const [aboutData, setAboutData] = useState(null);
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/about`)

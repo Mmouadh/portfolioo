@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
 
 const FALLBACK = [
   { name: "Youssef B.", age: 27, city: "Tunis", message: "Service rapide et soigné, je recommande." },

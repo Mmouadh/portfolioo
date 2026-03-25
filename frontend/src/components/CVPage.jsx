@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Download, ExternalLink, FileText, ShieldCheck } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://portfolioo-backend.onrender.com';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'react-pdf/node_modules/pdfjs-dist/build/pdf.worker.min.mjs',

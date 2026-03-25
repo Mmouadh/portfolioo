@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = [

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
 
 const resolveImage = (image) => {
   if (!image) return null;

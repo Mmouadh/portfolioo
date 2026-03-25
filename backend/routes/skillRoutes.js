@@ -45,7 +45,7 @@ router.post("/", authMiddleware, upload.single("iconFile"), async (req, res) => 
     let skillData = { name, level };
 
     if (req.file) {
-      skillData.icon = `http://localhost:5000/uploads/${req.file.filename}`;
+      skillData.icon = `https://portfolioo-backend.onrender.com/uploads/${req.file.filename}`;
     } else if (icon) {
       skillData.icon = icon;
     }
@@ -65,7 +65,7 @@ router.put("/:id", authMiddleware, upload.single("iconFile"), async (req, res) =
     let updateData = { name, level };
 
     if (req.file) {
-      updateData.icon = `http://localhost:5000/uploads/${req.file.filename}`;
+      updateData.icon = `https://portfolioo-backend.onrender.com/uploads/${req.file.filename}`;
     } else if (icon) {
       updateData.icon = icon;
     }
