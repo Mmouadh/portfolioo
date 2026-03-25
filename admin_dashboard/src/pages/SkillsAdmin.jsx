@@ -14,7 +14,7 @@ function SkillsAdmin() {
     try {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
-      const res = await fetch("http://localhost:5000/api/skills", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) throw new Error("Failed to fetch skills");
@@ -64,8 +64,8 @@ function SkillsAdmin() {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(
         editingId
-          ? `http://localhost:5000/api/skills/${editingId}`
-          : "http://localhost:5000/api/skills",
+          ? `${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills/${editingId}`
+          : `${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills`,
         {
           method: editingId ? "PUT" : "POST",
           body: formData,
@@ -95,7 +95,7 @@ function SkillsAdmin() {
     try {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
-      const res = await fetch(`http://localhost:5000/api/skills/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

@@ -28,7 +28,7 @@ function AboutAdmin() {
           localStorage.getItem("adminToken") ||
           localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/about", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/about`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
@@ -55,7 +55,7 @@ function AboutAdmin() {
           });
 
           if (data.image) {
-            setPreview(`http://localhost:5000${data.image}`);
+            setPreview(`${(import.meta.env.VITE_BACKEND_URL || "http://localhost:5000")}${data.image}`);
           }
 
           setStatus("idle");
@@ -118,7 +118,7 @@ function AboutAdmin() {
       localStorage.getItem("adminToken") ||
       localStorage.getItem("token");
 
-    fetch("http://localhost:5000/api/about", {
+    fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/about`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`
