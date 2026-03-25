@@ -14,7 +14,9 @@ function SkillsAdmin() {
     try {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills`, {
+      const base =
+        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+      const res = await fetch(`${base}/api/skills`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) throw new Error("Failed to fetch skills");
@@ -64,8 +66,8 @@ function SkillsAdmin() {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(
         editingId
-          ? `${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills/${editingId}`
-          : `${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills`,
+          ? `${base}/api/skills/${editingId}`
+          : `${base}/api/skills`,
         {
           method: editingId ? "PUT" : "POST",
           body: formData,
@@ -95,7 +97,9 @@ function SkillsAdmin() {
     try {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/skills/${id}`, {
+      const base =
+        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+      const res = await fetch(`${base}/api/skills/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

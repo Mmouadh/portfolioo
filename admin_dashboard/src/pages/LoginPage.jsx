@@ -11,7 +11,9 @@ function LoginPage() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/auth/login`, {
+      const base =
+        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+      const res = await fetch(`${base}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

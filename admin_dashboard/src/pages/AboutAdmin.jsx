@@ -28,7 +28,9 @@ function AboutAdmin() {
           localStorage.getItem("adminToken") ||
           localStorage.getItem("token");
 
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/about`, {
+      const base =
+        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+      const res = await fetch(`${base}/api/about`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
@@ -55,7 +57,7 @@ function AboutAdmin() {
           });
 
           if (data.image) {
-            setPreview(`${(import.meta.env.VITE_BACKEND_URL || "http://localhost:5000")}${data.image}`);
+            setPreview(`${(import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com")}${data.image}`);
           }
 
           setStatus("idle");
@@ -118,7 +120,9 @@ function AboutAdmin() {
       localStorage.getItem("adminToken") ||
       localStorage.getItem("token");
 
-    fetch(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"}/api/about`, {
+    const base =
+      import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+    fetch(`${base}/api/about`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`

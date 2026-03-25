@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function TestimonialsAdmin() {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
   const token = localStorage.getItem("adminToken");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 

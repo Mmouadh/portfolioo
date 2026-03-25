@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
 
 export default function Login() {
   const [email, setEmail] = useState("");

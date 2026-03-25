@@ -19,7 +19,8 @@ function ProjectsAdmin() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
   const token = localStorage.getItem("adminToken");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
