@@ -12,4 +12,6 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  // GitHub Pages project site lives at https://mmouadh.github.io/portfolioo/
+  base: "/portfolioo/",
 });
