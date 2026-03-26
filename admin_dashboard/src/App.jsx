@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import AboutAdmin from "./pages/AboutAdmin";
 import ProjectsAdmin from "./pages/ProjectsAdmin";
@@ -10,7 +10,7 @@ import Login from "./components/auth/Login";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {/* Public route */}
         <Route path="/login" element={<Login />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="/testimonials" element={<TestimonialsAdmin />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
