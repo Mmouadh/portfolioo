@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const BACKEND_URL =
@@ -7,6 +8,7 @@ const BACKEND_URL =
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,8 @@ export default function Login() {
       });
       localStorage.setItem("adminToken", res.data.token);
       alert("Logged in!");
-      window.location.href = "/";
+      // Use client-side navigation so GitHub Pages (hash router) doesn't 404
+      navigate("/");
     } catch (err) {
       alert(err.response?.data?.msg || "Login failed");
     }

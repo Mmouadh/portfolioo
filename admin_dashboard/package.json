@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://mmouadh.github.io/portfolioo/",
+  "homepage": "https://mmouadh.github.io/portfolioo/admin/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist --dest admin --add",
     "lint": "eslint .",
     "preview": "vite preview"
   },
