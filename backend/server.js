@@ -2,7 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
+
+const { uploadRoot } = require("./config/uploads");
 
 // Import routes
 const aboutRoutes = require("./routes/aboutRoutes");
@@ -20,7 +23,7 @@ app.use(cors()); // You can add origin: 'http://localhost:3000' if frontend runs
 app.use(express.json());
 
 // Make uploads folder public for CV preview/download
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(uploadRoot));
 
 /* ---------------- ROUTES ---------------- */
 app.use("/api/auth", authRoutes);
@@ -37,19 +40,31 @@ app.get("/", (req, res) => {
 });
 
 /* ---------------- DATABASE CONNECTION ---------------- */
-const startServer = async () => {
+let isConnecting = false;
+const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) return; // already connected
+  if (isConnecting) return; // prevent duplicate attempts
+  isConnecting = true;
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    throw error;
+  } finally {
+    isConnecting = false;
+  }
+};
 
+// Only start an HTTP listener in traditional server environments.
+if (!process.env.VERCEL) {
+  connectDB().then(() => {
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    process.exit(1); // exit process if DB fails
-  }
-};
+  });
+}
 
-startServer();
+// Export for serverless environments (Vercel)
+module.exports = { app, connectDB, uploadRoot };

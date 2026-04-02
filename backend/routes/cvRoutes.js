@@ -3,13 +3,14 @@ const multer = require("multer");
 const path = require("path");
 const CV = require("../models/CV");
 const authMiddleware = require("../middleware/auth"); // <--- import JWT middleware
+const { uploadRoot } = require("../config/uploads");
 
 const router = express.Router();
 
 // Multer setup for CV file uploads
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, "cv-" + Date.now() + path.extname(file.originalname)),
+  destination: (_req, _file, cb) => cb(null, uploadRoot),
+  filename: (_req, file, cb) => cb(null, "cv-" + Date.now() + path.extname(file.originalname)),
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 

@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 const authMiddleware = require("../middleware/auth");
+const { uploadRoot } = require("../config/uploads");
 
 const {
   createProject,
@@ -12,7 +13,7 @@ const {
   deleteProject,
 } = require("../controllers/projectController");
 
-const uploadDir = path.join(__dirname, "..", "uploads", "projects");
+const uploadDir = path.join(uploadRoot, "projects");
 fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({

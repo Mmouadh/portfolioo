@@ -2,14 +2,13 @@ const express = require("express");
 const Skill = require("../models/Skill");
 const multer = require("multer");
 const path = require("path");
+const { uploadRoot } = require("../config/uploads");
 const authMiddleware = require("../middleware/auth");
 const router = express.Router();
 
 // Configure Multer for image uploads
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
+  destination: (_req, _file, cb) => cb(null, uploadRoot),
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   },
@@ -45,7 +44,8 @@ router.post("/", authMiddleware, upload.single("iconFile"), async (req, res) => 
     let skillData = { name, level };
 
     if (req.file) {
-      skillData.icon = `https://portfolioo-backend.onrender.com/uploads/${req.file.filename}`;
+      const base = process.env.PUBLIC_BACKEND_URL || "";
+      skillData.icon = `${base}/uploads/${req.file.filename}`;
     } else if (icon) {
       skillData.icon = icon;
     }
@@ -65,7 +65,8 @@ router.put("/:id", authMiddleware, upload.single("iconFile"), async (req, res) =
     let updateData = { name, level };
 
     if (req.file) {
-      updateData.icon = `https://portfolioo-backend.onrender.com/uploads/${req.file.filename}`;
+      const base = process.env.PUBLIC_BACKEND_URL || "";
+      updateData.icon = `${base}/uploads/${req.file.filename}`;
     } else if (icon) {
       updateData.icon = icon;
     }

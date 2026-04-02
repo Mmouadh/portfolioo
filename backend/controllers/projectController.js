@@ -60,9 +60,7 @@ exports.updateProject = async (req, res) => {
     }
 
     if (req.file) {
-      update.image = path
-        .join("uploads", "projects", req.file.filename)
-        .replace(/\\/g, "/");
+      update.image = path.join("uploads", "projects", req.file.filename).replace(/\\/g, "/");
     }
 
     const updatedProject = await Project.findByIdAndUpdate(
