@@ -4,13 +4,7 @@
     "api/index.js": {
       "memory": 1024,
       "maxDuration": 10,
-      "runtime": "nodejs22.x",
-      "env": {
-        "MONGO_URI": "@mongo_uri",
-        "JWT_SECRET": "@jwt_secret",
-        "UPLOAD_DIR": "/tmp/uploads",
-        "PUBLIC_BACKEND_URL": "https://<your-vercel-backend>.vercel.app"
-      }
+      "runtime": "nodejs22.x"
     }
   },
   "routes": [
