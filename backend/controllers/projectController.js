@@ -1,5 +1,5 @@
-const path = require("path");
 const Project = require("../models/project");
+const { normalizeFilePath } = require("../config/uploads");
 
 const parseList = (value) => {
   if (!value) return [];
@@ -15,9 +15,7 @@ const parseList = (value) => {
 
 exports.createProject = async (req, res) => {
   try {
-    const imagePath = req.file
-      ? path.join("uploads", "projects", req.file.filename).replace(/\\/g, "/")
-      : req.body.image;
+    const imagePath = normalizeFilePath(req.file) || req.body.image;
 
     const payload = {
       title: req.body.title,
@@ -60,7 +58,7 @@ exports.updateProject = async (req, res) => {
     }
 
     if (req.file) {
-      update.image = path.join("uploads", "projects", req.file.filename).replace(/\\/g, "/");
+      update.image = normalizeFilePath(req.file);
     }
 
     const updatedProject = await Project.findByIdAndUpdate(

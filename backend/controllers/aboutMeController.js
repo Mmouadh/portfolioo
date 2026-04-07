@@ -1,4 +1,5 @@
 const AboutMe = require("../models/AboutMe");
+const { normalizeFilePath } = require("../config/uploads");
 
 // GET about me
 exports.getAboutMe = async (req, res) => {
@@ -46,9 +47,9 @@ exports.updateAboutMe = async (req, res) => {
     }
 
     // Handle file upload if present
-    if (req.file) {
-      // server.js serves the 'uploads' folder, so we store the public path
-      about.image = `/uploads/${req.file.filename}`;
+    const uploadedImage = normalizeFilePath(req.file);
+    if (uploadedImage) {
+      about.image = uploadedImage;
     }
 
     about.updatedAt = Date.now();

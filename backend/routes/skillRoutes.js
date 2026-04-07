@@ -1,20 +1,10 @@
 const express = require("express");
 const Skill = require("../models/Skill");
-const multer = require("multer");
-const path = require("path");
-const { uploadRoot } = require("../config/uploads");
+const { makeUpload, normalizeFilePath } = require("../config/uploads");
 const authMiddleware = require("../middleware/auth");
 const router = express.Router();
 
-// Configure Multer for image uploads
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, uploadRoot),
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage });
+const upload = makeUpload({ folder: "skills", resourceType: "image" });
 
 // GET /api/skills - Fetch all skills
 router.get("/", async (req, res) => {
@@ -44,8 +34,7 @@ router.post("/", authMiddleware, upload.single("iconFile"), async (req, res) => 
     let skillData = { name, level };
 
     if (req.file) {
-      const base = process.env.PUBLIC_BACKEND_URL || "";
-      skillData.icon = `${base}/uploads/${req.file.filename}`;
+      skillData.icon = normalizeFilePath(req.file);
     } else if (icon) {
       skillData.icon = icon;
     }
@@ -65,8 +54,7 @@ router.put("/:id", authMiddleware, upload.single("iconFile"), async (req, res) =
     let updateData = { name, level };
 
     if (req.file) {
-      const base = process.env.PUBLIC_BACKEND_URL || "";
-      updateData.icon = `${base}/uploads/${req.file.filename}`;
+      updateData.icon = normalizeFilePath(req.file);
     } else if (icon) {
       updateData.icon = icon;
     }

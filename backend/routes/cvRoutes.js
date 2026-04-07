@@ -1,18 +1,27 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
 const CV = require("../models/CV");
 const authMiddleware = require("../middleware/auth"); // <--- import JWT middleware
-const { uploadRoot } = require("../config/uploads");
+const { makeUpload, normalizeFilePath } = require("../config/uploads");
 
 const router = express.Router();
 
-// Multer setup for CV file uploads
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, uploadRoot),
-  filename: (_req, file, cb) => cb(null, "cv-" + Date.now() + path.extname(file.originalname)),
+// CV uploads (pdf/doc) - use Cloudinary raw or local disk fallback
+const upload = makeUpload({
+  folder: "cv",
+  resourceType: "raw",
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const allowed = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (file.mimetype && !allowed.includes(file.mimetype)) {
+      return cb(new Error("Only PDF, DOC, and DOCX files are allowed."), false);
+    }
+    cb(null, true);
+  },
 });
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
 // GET /api/cv - Fetch CV data (can keep public or protect if you want)
 router.get("/", async (req, res) => {
@@ -30,7 +39,7 @@ router.post("/", authMiddleware, upload.single("cvFile"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
     const cv = new CV({
       filename: req.file.originalname,
-      path: req.file.path,
+      path: normalizeFilePath(req.file),
     });
     await cv.save();
     res.status(201).json(cv);
@@ -44,7 +53,7 @@ router.put("/", authMiddleware, upload.single("cvFile"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
     const cv = await CV.findOneAndUpdate(
       {},
-      { filename: req.file.originalname, path: req.file.path },
+      { filename: req.file.originalname, path: normalizeFilePath(req.file) },
       { new: true, upsert: true }
     );
     res.json(cv);

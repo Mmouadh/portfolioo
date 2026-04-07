@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const { uploadRoot } = require("../config/uploads");
-const upload = multer({ dest: uploadRoot });
+const { makeUpload } = require("../config/uploads");
+const upload = makeUpload({ folder: "about", resourceType: "image" });
 const { getAboutMe, updateAboutMe } = require("../controllers/aboutMeController");
 const authMiddleware = require("../middleware/auth");
 
