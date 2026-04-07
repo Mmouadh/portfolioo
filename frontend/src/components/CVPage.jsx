@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Download, ExternalLink, FileText, ShieldCheck } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://portfolioo-backend.onrender.com';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://<your-vercel-backend>.vercel.app';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'react-pdf/node_modules/pdfjs-dist/build/pdf.worker.min.mjs',
@@ -11,7 +11,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 function buildFileUrl(path) {
   if (!path) return '';
-  return `${BACKEND_URL}/${String(path).replace(/\\/g, '/')}`;
+  const clean = String(path).replace(/\\/g, '/');
+  if (/^https?:\/\//i.test(clean)) return clean;
+  return `${BACKEND_URL}/${clean.replace(/^\//, '')}`;
 }
 
 export default function CVPage() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
 
 const FALLBACK = [
   { name: "Youssef B.", age: 27, city: "Tunis", message: "Service rapide et soigné, je recommande." },
