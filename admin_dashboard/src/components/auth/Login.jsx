@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+  import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
 
 export default function Login() {
   const [email, setEmail] = useState("");

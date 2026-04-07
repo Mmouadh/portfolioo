@@ -12,7 +12,7 @@ function LoginPage() {
     setError('');
     try {
       const base =
-        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+        import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
       const res = await fetch(`${base}/api/auth/login`, {
         method: 'POST',
         headers: {

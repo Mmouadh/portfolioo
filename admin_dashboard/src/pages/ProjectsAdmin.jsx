@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const cleanPath = (p) => (p ? p.replace(/\\/g, "/") : "");
+const toImageUrl = (p) => {
+  if (!p) return "";
+  const clean = p.replace(/\\/g, "/");
+  if (/^https?:\/\//i.test(clean)) return clean;
+  return `${BACKEND_URL}/${clean.replace(/^\//, "")}`;
+};
 
 function ProjectsAdmin() {
   const [projects, setProjects] = useState([]);
@@ -20,7 +25,7 @@ function ProjectsAdmin() {
   const [message, setMessage] = useState("");
 
   const BACKEND_URL =
-    import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+    import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
   const token = localStorage.getItem("adminToken");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -197,7 +202,7 @@ function ProjectsAdmin() {
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                 {project.image && (
                   <img
-                    src={`${BACKEND_URL}/${cleanPath(project.image)}`}
+                    src={toImageUrl(project.image)}
                     alt={project.title}
                     style={{ width: 96, height: 64, objectFit: "cover", borderRadius: 6 }}
                   />

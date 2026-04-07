@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function TestimonialsAdmin() {
   const BACKEND_URL =
-    import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+    import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
   const token = localStorage.getItem("adminToken");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 

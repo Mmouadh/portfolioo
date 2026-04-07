@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+  import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = [
@@ -28,7 +28,9 @@ function formatFileSize(sizeInBytes) {
 
 function buildFileUrl(path) {
   if (!path) return "";
-  return `${BACKEND_URL}/${String(path).replace(/\\/g, "/")}`;
+  const clean = String(path).replace(/\\/g, "/");
+  if (/^https?:\/\//i.test(clean)) return clean;
+  return `${BACKEND_URL}/${clean.replace(/^\//, "")}`;
 }
 
 function getErrorMessage(error, fallbackMessage) {

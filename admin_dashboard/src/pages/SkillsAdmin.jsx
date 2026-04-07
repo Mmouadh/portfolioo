@@ -15,7 +15,7 @@ function SkillsAdmin() {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
       const base =
-        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+        import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
       const res = await fetch(`${base}/api/skills`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -98,7 +98,7 @@ function SkillsAdmin() {
       setStatus("loading");
       const token = localStorage.getItem("adminToken");
       const base =
-        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+        import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
       const res = await fetch(`${base}/api/skills/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }

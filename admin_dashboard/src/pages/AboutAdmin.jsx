@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
 
+const buildImageUrl = (path) => {
+  if (!path) return "";
+  const clean = path.replace(/\\/g, "/");
+  if (/^https?:\/\//i.test(clean)) return clean;
+  const base =
+    import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
+  return `${base}/${clean.replace(/^\//, "")}`;
+};
+
 function AboutAdmin() {
   const [formData, setFormData] = useState({
     name: "",
@@ -29,7 +38,7 @@ function AboutAdmin() {
           localStorage.getItem("token");
 
       const base =
-        import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+        import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
       const res = await fetch(`${base}/api/about`, {
           method: "GET",
           headers: {
@@ -57,7 +66,7 @@ function AboutAdmin() {
           });
 
           if (data.image) {
-            setPreview(`${(import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com")}${data.image}`);
+            setPreview(buildImageUrl(data.image));
           }
 
           setStatus("idle");
@@ -121,7 +130,7 @@ function AboutAdmin() {
       localStorage.getItem("token");
 
     const base =
-      import.meta.env.VITE_BACKEND_URL || "https://portfolioo-backend.onrender.com";
+      import.meta.env.VITE_BACKEND_URL || "https://<your-vercel-backend>.vercel.app";
     fetch(`${base}/api/about`, {
       method: "PUT",
       headers: {
